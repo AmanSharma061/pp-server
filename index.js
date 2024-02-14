@@ -23,8 +23,7 @@ connectDB();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://pp-client-amber.vercel.app/",
-    methods: ["GET", "POST"]
+    origin: "*"
   }
 });
 
