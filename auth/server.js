@@ -12,7 +12,7 @@ router.post("/api/signup", async (req, res) => {
     const userExists = await User.findOne({ email });
 
     if (userExists) {
-      return res.json({ error: "User Already Exists" });
+      return res.status(201).send({ error: "User Already Exists" });
     }
 
     if (password != cpassword) {
