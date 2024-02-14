@@ -42,7 +42,7 @@ router.post("/api/login", async (req, res) => {
     const emailExists = await User.findOne({ email: email });
 
     if (!emailExists) {
-      return res.status(400).json({ error: "Invalid Credentials" });
+      return res.json({ error: "Invalid Credentials" });
     } else {
       const pMatch = await bcrypt.compare(password, emailExists.password);
       if (pMatch) {
