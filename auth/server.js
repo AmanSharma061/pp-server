@@ -16,7 +16,7 @@ router.post("/api/signup", async (req, res) => {
     }
 
     if (password != cpassword) {
-      return res.json({ error: "Invalid Credentials" });
+      return res.json({ error: "Passwords and Confirm Password not same" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

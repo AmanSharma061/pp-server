@@ -110,6 +110,10 @@ io.on("connection", async (socket) => {
         poll: pollId
       });
       let noti = {};
+      const allNotificationsFor = await Notification.find({})
+        .populate("notificationFor")
+        .populate("notificationBy")
+        .populate("poll");
       Notification.findOne({})
         .sort({ _id: -1 })
         .populate("notificationFor")
@@ -117,7 +121,7 @@ io.on("connection", async (socket) => {
         .populate("poll")
         .then((lastNotification) => {
           if (lastNotification) {
-            socket.broadcast.emit("broadcast", { lastNotification });
+            socket.broadcast.emit("broadcast", { lastNotification ,allNotificationsFor});
           } else {
             console.log("No notifications found.");
           }
