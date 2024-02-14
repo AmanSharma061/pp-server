@@ -8,7 +8,7 @@ import Poll from "../database/models/pollModel.js";
 router.post("/api/signup", async (req, res) => {
   try {
     const { name, email, password, cpassword, image } = req.body;
-  console.log(image)
+    console.log(image);
     const userExists = await User.findOne({ email });
 
     if (userExists) {
@@ -52,7 +52,7 @@ router.post("/api/login", async (req, res) => {
           expires: new Date(Date.now() + 25892000000),
           httpOnly: true
         });
-        console.log(emailExists)
+        console.log(emailExists);
         const user = {
           id: emailExists._id,
           name: emailExists.name,
@@ -78,19 +78,6 @@ router.post("/api/logout", (req, res) => {
   res.status(200).send({ message: "Logged Out Successfully" });
 });
 
-const authMiddleware = (req, res, next) => {
-  if (!token) {
-    return res.status(401).send("Access denied. No token provided.");
-  }
-  try {
-    const decoded = jwt.verify(token, "secret");
-    req.user = decoded;
-    next();
-  } catch (error) {
-    console.error(error);
-    res.status(400).send("Invalid token.");
-  }
-};
 router.post("/api/create", async (req, res) => {
   const obtained = req.body;
 
